@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodExpress - Discover Restaurants & Delivery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+        
+        :root {
+            --primary: #e23744;
+            --primary-dark: #e8493e;
+            --secondary: #4f46e5;
+            --accent: #f59e0b;
+        }
+        
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: #1f2937;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+        }
+        
+        .restaurant-card {
+            transition: all 0.3s ease;
+        }
+        
+        .restaurant-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-color: rgba(239, 68, 68, 0.2);
+        }
+        
+        .category-card img {
+            transition: all 0.3s ease;
+        }
+        
+        .category-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .offer-badge {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .offer-badge::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 20px;
+            height: 20px;
+            background-color: var(--accent);
+            transform: rotate(45deg);
+            z-index: 1;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-8">
+                <a href="#" class="text-3xl font-bold text-red-500 flex items-center">
+                    <i class="fas fa-utensils mr-2"></i>
+                    <span>FoodExpress</span>
+                </a>
+                <div class="hidden lg:flex items-center bg-gray-100 rounded-md px-3 py-1.5 w-64">
+                    <i class="fas fa-map-marker-alt text-gray-500 mr-2"></i>
+                    <input type="text" placeholder="Enter delivery location" class="bg-transparent outline-none w-full text-sm placeholder-gray-500">
+                    <i class="fas fa-chevron-down text-gray-500 text-xs"></i>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4 md:space-x-6">
+                <a href="#" class="text-gray-600 hover:text-red-500 hidden md:flex items-center text-sm md:text-base">
+                    <i class="fas fa-store mr-1"></i>
+                    <span>For Businesses</span>
+                </a>
+                <a href="code(LOGIN PAGE).html" class="text-gray-600 hover:text-red-500 hidden md:flex items-center text-sm md:text-base">
+                    <i class="fas fa-sign-in-alt mr-1"></i>
+                    <span>Log In</span>
+                </a>
+                <a href="code(SIGN UP PAGE).html" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md text-sm md:text-base font-medium transition-colors hidden md:block">
+                    Sign Up
+                </a>
+                <button class="relative bg-gray-100 hover:bg-gray-200 rounded-full p-2">
+                    <i class="fas fa-shopping-cart text-gray-600"></i>
+                    <span class="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">3</span>
+                </button>
+                <button class="md:hidden p-2">
+                    <i class="fas fa-bars text-gray-600"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient text-white py-12 md:py-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 class="text-3xl md:text-5xl font-bold mb-4 md:mb-6 leading-tight">Discover the best <span class="text-yellow-300">food</span> & <span class="text-yellow-300">drinks</span> in your city</h1>
+                <p class="text-lg md:text-xl mb-6 md:mb-8 max-w-2xl mx-auto">Order from your favorite restaurants with just a few clicks and get it delivered to your doorstep</p>
+                
+                <div class="bg-white rounded-lg shadow-md flex flex-col md:flex-row items-stretch p-2 mx-4">
+                    <div class="relative flex-grow flex items-center py-2 px-4">
+                        <i class="fas fa-search text-gray-500 mr-3"></i>
+                        <input type="text" placeholder="Search for restaurants or cuisines..." class="flex-grow outline-none text-gray-800 placeholder-gray-400">
+                        <i class="fas fa-times text-gray-400 ml-2 cursor-pointer hover:text-gray-600"></i>
+                    </div>
+                    <button class="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-md font-medium transition-colors mt-2 md:mt-0 md:ml-2">
+                        <i class="fas fa-search mr-2"></i>
+                        Search
+                    </button>
+                </div>
+                
+                <div class="flex flex-wrap justify-center gap-2 md:gap-4 mt-6">
+                    <button class="bg-white text-red-500 hover:bg-gray-100 px-3 py-1.5 rounded-full text-sm font-medium flex items-center">
+                        <i class="fas fa-crown text-yellow-500 mr-1"></i>
+                        Popular
+                    </button>
+                    <button class="bg-white text-red-500 hover:bg-gray-100 px-3 py-1.5 rounded-full text-sm font-medium flex items-center">
+                        <i class="fas fa-bolt text-purple-500 mr-1"></i>
+                        Fast Delivery
+                    </button>
+                    <button class="bg-white text-red-500 hover:bg-gray-100 px-3 py-1.5 rounded-full text-sm font-medium flex items-center">
+                        <i class="fas fa-leaf text-green-500 mr-1"></i>
+                        Healthy
+                    </button>
+                    <button class="bg-white text-red-500 hover:bg-gray-100 px-3 py-1.5 rounded-full text-sm font-medium flex items-center">
+                        <i class="fas fa-star text-blue-500 mr-1"></i>
+                        Top Rated
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Food Categories -->
+    <section class="py-10 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800 flex items-center">
+                <i class="fas fa-lightbulb text-yellow-400 mr-2"></i>
+                What's on your mind?
+            </h2>
+            <div class="flex space-x-4 md:space-x-6 overflow-x-auto scrollbar-hide pb-4 -mx-4 px-4">
+                <!-- Category items will go here (same as previous version) -->
+                <div class="category-card flex-shrink-0 w-20 md:w-28 text-center">
+                    <div class="h-16 w-16 md:h-20 md:w-20 mx-auto rounded-full overflow-hidden mb-2 bg-gray-100">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a75aee44-e758-4b94-921e-e430b8a7dd6c.png" alt="Delicious golden-brown pizza with melted cheese and toppings" class="w-full h-full object-cover transition-transform duration-300">
+                    </div>
+                    <p class="text-xs md:text-sm font-medium text-gray-700 truncate">Pizza</p>
+                </div>
+                <div class="category-card flex-shrink-0 w-20 md:w-28 text-center">
+                    <div class="h-16 w-16 md:h-20 md:w-20 mx-auto rounded-full overflow-hidden mb-2 bg-gray-100">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/7c1249b4-8a35-422e-ab17-583b85afdfb2.png" alt="Juicy cheeseburger with fresh lettuce and sesame seed bun" class="w-full h-full object-cover transition-transform duration-300">
+                    </div>
+                    <p class="text-xs md:text-sm font-medium text-gray-700 truncate">Burger</p>
+                </div>
+                <div class="category-card flex-shrink-0 w-20 md:w-28 text-center">
+                    <div class="h-16 w-16 md:h-20 md:w-20 mx-auto rounded-full overflow-hidden mb-2 bg-gray-100">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/dc551205-eafd-4065-acb0-4461adb14732.png" alt="Colorful assortment of fresh sushi rolls on wooden platter" class="w-full h-full object-cover transition-transform duration-300">
+                    </div>
+                    <p class="text-xs md:text-sm font-medium text-gray-700 truncate">Sushi</p>
+                </div>
+                <div class="category-card flex-shrink-0 w-20 md:w-28 text-center">
+                    <div class="h-16 w-16 md:h-20 md:w-20 mx-auto rounded-full overflow-hidden mb-2 bg-gray-100">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a6228da7-4297-4a8e-be04-3d169a4b9db8.png" alt="Creamy fettuccine alfredo pasta with parmesan cheese" class="w-full h-full object-cover transition-transform duration-300">
+                    </div>
+                    <p class="text-xs md:text-sm font-medium text-gray-700 truncate">Pasta</p>
+                </div>
+                <div class="category-card flex-shrink-0 w-20 md:w-28 text-center">
+                    <div class="h-16 w-16 md:h-20 md:w-20 mx-auto rounded-full overflow-hidden mb-2 bg-gray-100">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/5ce10159-ede7-47cc-bd5a-2f493d849f3a.png" alt="Fresh vegetable salad with cherry tomatoes and dressing" class="w-full h-full object-cover transition-transform duration-300">
+                    </div>
+                    <p class="text-xs md:text-sm font-medium text-gray-700 truncate">Salad</p>
+                </div>
+                <div class="category-card flex-shrink-0 w-20 md:w-28 text-center">
+                    <div class="h-16 w-16 md:h-20 md:w-20 mx-auto rounded-full overflow-hidden mb-2 bg-gray-100">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2eaf2168-b050-4a4b-aa45-b451f392cb62.png" alt="Decadent chocolate cake with strawberry garnish" class="w-full h-full object-cover transition-transform duration-300">
+                    </div>
+                    <p class="text-xs md:text-sm font-medium text-gray-700 truncate">Dessert</p>
+                </div>
+                <div class="category-card flex-shrink-0 w-20 md:w-28 text-center">
+                    <div class="h-16 w-16 md:h-20 md:w-20 mx-auto rounded-full overflow-hidden mb-2 bg-gray-100">
+                        <img src="Green Smoothie with Kiwi and Mint.png" alt="Refreshing fruit smoothie bowl with banana and berries" class="w-full h-full object-cover transition-transform duration-300">
+                    </div>
+                    <p class="text-xs md:text-sm font-medium text-gray-700 truncate">Smoothie</p>
+                </div>
+                <div class="category-card flex-shrink-0 w-20 md:w-28 text-center">
+                    <div class="h-16 w-16 md:h-20 md:w-20 mx-auto rounded-full overflow-hidden mb-2 bg-gray-100">
+                        <img src="Indian.png" alt="Traditional Indian thali with variety of dishes" class="w-full h-full object-cover transition-transform duration-300">
+                    </div>
+                    <p class="text-xs md:text-sm font-medium text-gray-700 truncate">Indian</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collections -->
+    <section class="py-10 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 flex items-center">
+                    <i class="fas fa-th-large text-yellow-400 mr-2"></i>
+                    Popular Collections
+                </h2>
+                <a href="#" class="text-red-500 text-sm font-medium flex items-center hover:text-red-600">
+                    See all <i class="fas fa-chevron-right ml-1 text-xs"></i>
+                </a>
+            </div>
+            <!-- Collection grid will go here -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                <a href="#" class="group relative rounded-xl overflow-hidden h-48 cursor-pointer">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent z-10"></div>
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/bab72d11-f4bc-456d-8904-b43709a8c1f4.png" alt="Trending restaurants with viral dishes and modern interiors" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="absolute inset-0 z-20 flex items-end p-4">
+                        <div>
+                            <h3 class="text-white font-bold text-lg mb-1">Trending This Week</h3>
+                            <p class="text-gray-200 text-sm">27 places</p>
+                        </div>
+                    </div>
+                    <div class="absolute top-3 left-3 bg-white text-red-500 rounded-md px-2 py-1 text-xs font-bold z-20">
+                        COLLECTION
+                    </div>
+                </a>
+                
+                <a href="#" class="group relative rounded-xl overflow-hidden h-48 cursor-pointer">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent z-10"></div>
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/28415b93-7a18-4ced-81ad-f89c77e3a803.png" alt="Newly opened restaurants with innovative cuisine concepts" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="absolute inset-0 z-20 flex items-end p-4">
+                        <div>
+                            <h3 class="text-white font-bold text-lg mb-1">Newly Opened</h3>
+                            <p class="text-gray-200 text-sm">14 places</p>
+                        </div>
+                    </div>
+                    <div class="absolute top-3 left-3 bg-white text-red-500 rounded-md px-2 py-1 text-xs font-bold z-20">
+                        COLLECTION
+                    </div>
+                </a>
+                
+                <a href="#" class="group relative rounded-xl overflow-hidden h-48 cursor-pointer">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent z-10"></div>
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/285cb247-ab6d-442a-8889-b6e342f9a84d.png" alt="Healthy organic food options and salad bars" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="absolute inset-0 z-20 flex items-end p-4">
+                        <div>
+                            <h3 class="text-white font-bold text-lg mb-1">Healthy Eats</h3>
+                            <p class="text-gray-200 text-sm">32 places</p>
+                        </div>
+                    </div>
+                    <div class="absolute top-3 left-3 bg-white text-red-500 rounded-md px-2 py-1 text-xs font-bold z-20">
+                        COLLECTION
+                    </div>
+                </a>
+                
+                <a href="#" class="group relative rounded-xl overflow-hidden h-48 cursor-pointer">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent z-10"></div>
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/6dde9a57-6103-474b-b406-70c866671077.png" alt="Luxury fine dining establishments with elegant settings" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="absolute inset-0 z-20 flex items-end p-4">
+                        <div>
+                            <h3 class="text-white font-bold text-lg mb-1">Luxury Dining</h3>
+                            <p class="text-gray-200 text-sm">8 places</p>
+                        </div>
+                    </div>
+                    <div class="absolute top-3 left-3 bg-white text-red-500 rounded-md px-2 py-1 text-xs font-bold z-20">
+                        COLLECTION
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Offers Section -->
+    <section class="py-10 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800 flex items-center">
+                <i class="fas fa-tag text-red-500 mr-2"></i>
+                Best Offers for You
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="offer-card bg-gradient-to-r from-yellow-50 to-red-50 rounded-xl p-5 border border-gray-200">
+                    <div class="flex items-start mb-3">
+                        <div class="bg-white rounded-lg p-2 shadow-sm mr-4">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c4d8a3a3-e1fb-4d44-9591-4a6877a2c897.png" alt="50% off discount offer" class="w-12 h-12 object-contain">
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-800 mb-1">50% OFF up to $10</h3>
+                            <p class="text-gray-600 text-sm">Use code FOOD50 • Valid until today</p>
+                        </div>
+                    </div>
+                    <button class="w-full bg-white text-red-500 border border-red-400 font-medium py-2 px-4 rounded-lg text-sm hover:bg-red-50">
+                        Order Now
+                    </button>
+                </div>
+                
+                <div class="offer-card bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-5 border border-gray-200">
+                    <div class="flex items-start mb-3">
+                        <div class="bg-white rounded-lg p-2 shadow-sm mr-4">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b653b90a-3caa-4a75-821f-b695a6745d9d.png" alt="Free delivery offer" class="w-12 h-12 object-contain">
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-800 mb-1">Free Delivery</h3>
+                            <p class="text-gray-600 text-sm">On orders above $20 • Valid today only</p>
+                        </div>
+                    </div>
+                    <button class="w-full bg-white text-purple-600 border border-purple-400 font-medium py-2 px-4 rounded-lg text-sm hover:bg-purple-50">
+                        Order Now
+                    </button>
+                </div>
+                
+                <div class="offer-card bg-gradient-to-r from-green-50 to-teal-50 rounded-xl p-5 border border-gray-200">
+                    <div class="flex items-start mb-3">
+                        <div class="bg-white rounded-lg p-2 shadow-sm mr-4">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/fff9c1f8-e5e1-42da-9ff6-11c9020e5dc3.png" alt="Combo meal offer" class="w-12 h-12 object-contain">
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-800 mb-1">Combo Meal @ $8.99</h3>
+                            <p class="text-gray-600 text-sm">Burger + Fries + Drink • Limited time</p>
+                        </div>
+                    </div>
+                    <button class="w-full bg-white text-teal-600 border border-teal-400 font-medium py-2 px-4 rounded-lg text-sm hover:bg-teal-50">
+                        Order Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nearby Restaurants -->
+    <section class="py-10 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800 flex items-center mb-2">
+                        <i class="fas fa-map-marker-alt text-red-500 mr-2"></i>
+                        Restaurants near you
+                    </h2>
+                    <p class="text-gray-500 text-sm">Based in Downtown • <a href="#" class="text-red-500 hover:underline">Change location</a></p>
+                </div>
+                <div class="flex items-center space-x-2 mt-4 md:mt-0">
+                    <span class="text-sm text-gray-500">Sort by:</span>
+                    <select class="bg-gray-100 border-none rounded-md text-sm px-3 py-2 focus:ring-2 focus:ring-red-500 appearance-none">
+                        <option>Relevance</option>
+                        <option>Delivery Time</option>
+                        <option>Rating High-Low</option>
+                        <option>Price Low-High</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <!-- Restaurant Card 1 -->
+                <a href="#" class="restaurant-card bg-white rounded-xl overflow-hidden shadow-sm border border-gray-200 hover:border-red-100 transition-all duration-300">
+                    <div class="relative">
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/60a749c4-529d-4bc3-90fb-91369f923afc.png" alt="Bella Pasta Italian restaurant with cozy interior and pasta dishes" class="w-full h-full object-cover">
+                        </div>
+                        <div class="absolute top-2 left-2 bg-white rounded-md px-2 py-1 text-xs font-medium text-red-500 flex items-center">
+                            <i class="fas fa-bolt text-yellow-500 mr-1"></i>
+                            30 min
+                        </div>
+                        <div class="absolute top-2 right-2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center transition-colors">
+                            <i class="far fa-heart text-gray-500 hover:text-red-500"></i>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent h-16"></div>
+                        <div class="absolute bottom-2 left-2 bg-white text-red-500 rounded-md px-2 py-0.5 text-xs font-bold">
+                            PROMOTED
+                        </div>
+                        <div class="absolute bottom-2 right-2 bg-white/90 text-red-500 rounded-full px-2 py-0.5 text-xs font-bold flex items-center">
+                            <i class="fas fa-percentage mr-1"></i>
+                            <span>25% OFF</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-bold text-lg text-gray-800 mb-1">Bella Pasta</h3>
+                            <div class="flex items-center bg-green-100 px-2 py-1 rounded text-sm text-green-800 font-medium">
+                                <span>4.2</span>
+                                <i class="fas fa-star ml-1 text-xs"></i>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-500 mb-2">Italian • $$ • 1.5 km</p>
+                        <p class="text-sm text-gray-500">
+                            <span class="text-gray-400">Pasta, Pizza, Italian</span>
+                        </p>
+                    </div>
+                </a>
+
+                <!-- Restaurant Card 2 and 3 would follow similar structure -->
+                <a href="#" class="restaurant-card bg-white rounded-xl overflow-hidden shadow-sm border border-gray-200 hover:border-red-100 transition-all duration-300">
+                    <div class="relative">
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/e4b1a22c-9ff6-4736-97c2-f8f23dfc3c21.png" alt="Urban Bowl healthy food restaurant with grain bowls" class="w-full h-full object-cover">
+                        </div>
+                        <div class="absolute top-2 left-2 bg-white rounded-md px-2 py-1 text-xs font-medium text-red-500 flex items-center">
+                            <i class="fas fa-bolt text-yellow-500 mr-1"></i>
+                            20 min
+                        </div>
+                        <div class="absolute top-2 right-2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center transition-colors">
+                            <i class="far fa-heart text-gray-500 hover:text-red-500"></i>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent h-16"></div>
+                        <div class="absolute bottom-2 right-2 bg-white/90 text-red-500 rounded-full px-2 py-0.5 text-xs font-bold flex items-center">
+                            <i class="fas fa-truck mr-1"></i>
+                            <span>FREE DELIVERY</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-bold text-lg text-gray-800 mb-1">Urban Bowl</h3>
+                            <div class="flex items-center bg-green-100 px-2 py-1 rounded text-sm text-green-800 font-medium">
+                                <span>4.5</span>
+                                <i class="fas fa-star ml-1 text-xs"></i>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-500 mb-2">Healthy • $$ • 0.8 km</p>
+                        <p class="text-sm text-gray-500">
+                            <span class="text-gray-400">Salads, Bowls, Healthy</span>
+                        </p>
+                    </div>
+                </a>
+
+                <a href="#" class="restaurant-card bg-white rounded-xl overflow-hidden shadow-sm border border-gray-200 hover:border-red-100 transition-all duration-300">
+                    <div class="relative">
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b888323a-6cee-42b9-9611-8a19e0bd4fd4.png" alt="Tokyo Sushi restaurant with fresh sashimi and rolls" class="w-full h-full object-cover">
+                        </div>
+                        <div class="absolute top-2 left-2 bg-white rounded-md px-2 py-1 text-xs font-medium text-red-500 flex items-center">
+                            <i class="fas fa-bolt text-yellow-500 mr-1"></i>
+                            40 min
+                        </div>
+                        <div class="absolute top-2 right-2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center transition-colors">
+                            <i class="far fa-heart text-gray-500 hover:text-red-500"></i>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent h-16"></div>
+                        <div class="absolute bottom-2 right-2 bg-white/90 text-red-500 rounded-full px-2 py-0.5 text-xs font-bold flex items-center">
+                            <i class="fas fa-percentage mr-1"></i>
+                            <span>15% OFF</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-bold text-lg text-gray-800 mb-1">Tokyo Sushi</h3>
+                            <div class="flex items-center bg-green-100 px-2 py-1 rounded text-sm text-green-800 font-medium">
+                                <span>4.7</span>
+                                <i class="fas fa-star ml-1 text-xs"></i>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-500 mb-2">Japanese • $$$ • 2.3 km</p>
+                        <p class="text-sm text-gray-500">
+                            <span class="text-gray-400">Sushi, Sashimi, Japanese</span>
+                        </p>
+                    </div>
+                </a>
+
+                <!-- More cards would follow -->
+            </div>
+            
+            <div class="text-center mt-10">
+                <button class="bg-white border border-red-500 text-red-500 hover:bg-red-50 font-medium px-6 py-2.5 rounded-md transition-colors">
+                    See More Restaurants
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mobile App Banner -->
+    <section class="py-12 md:py-16 bg-gradient-to-r from-gray-900 to-gray-800 text-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-8 md:mb-0">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Get the FoodExpress App</h2>
+                    <p class="text-gray-300 mb-6 max-w-lg">Order food faster, track your delivery in real-time, and get exclusive app-only discounts and offers.</p>
+                    
+                    <div class="flex flex-wrap gap-3">
+                        <button class="bg-black hover:bg-gray-900 rounded-lg px-4 py-3 flex items-center transition-colors">
+                            <i class="fab fa-apple text-2xl md:text-3xl mr-2"></i>
+                            <div class="text-left">
+                                <div class="text-xs md:text-sm">Download on the</div>
+                                <div class="text-base md:text-lg font-medium">App Store</div>
+                            </div>
+                        </button>
+                        <button class="bg-black hover:bg-gray-900 rounded-lg px-4 py-3 flex items-center transition-colors">
+                            <i class="fab fa-google-play text-2xl md:text-3xl mr-2"></i>
+                            <div class="text-left">
+                                <div class="text-xs md:text-sm">Get it on</div>
+                                <div class="text-base md:text-lg font-medium">Google Play</div>
+                            </div>
+                        </button>
+                    </div>
+                    
+                    <div class="mt-6 flex flex-wrap gap-2">
+                        <div class="bg-black/20 rounded-lg px-3 py-1.5 text-sm flex items-center">
+                            <i class="fas fa-qrcode mr-1.5 text-yellow-400"></i>
+                            Scan to Download
+                        </div>
+                        <div class="bg-black/20 rounded-lg px-3 py-1.5 text-sm flex items-center">
+                            <i class="fas fa-link mr-1.5 text-blue-400"></i>
+                            foodexpress.app/download
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center relative">
+                    <div class="relative w-64 md:w-80">
+                        <div class="relative z-10">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c8b29356-f344-486f-9f86-23a5456c5841.png" alt="FoodExpress mobile app mockup showing food delivery interface" class="w-full rounded-xl shadow-xl">
+                        </div>
+                        <div class="absolute -bottom-4 -right-4 w-2/3 h-32 bg-red-500/30 rounded-xl -z-10"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12 text-sm">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-white text-lg font-bold mb-4 flex items-center">
+                        <i class="fas fa-utensils text-red-500 mr-2"></i>
+                        FoodExpress
+                    </h3>
+                    <p class="mb-4">Discover the best food & drinks in your city</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold mb-4">Company</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white hover:underline">About Us</a></li>
+                        <li><a href="#" class="hover:text-white hover:underline">Careers</a></li>
+                        <li><a href="#" class="hover:text-white hover:underline">Blog</a></li>
+                        <li><a href="#" class="hover:text-white hover:underline">Press</a></li>
+                        <li><a href="#" class="hover:text-white hover:underline">Gift Cards</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold mb-4">For Foodies</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white hover:underline">Code of Conduct</a></li>
+                        <li><a href="#" class="hover:text-white hover:underline">Community</a></li>
+                        <li><a href="#" class="hover:text-white hover:underline">Verified Users</a></li>
+                        <li><a href="#" class="hover:text-white hover:underline">Developers</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold mb-4">For Restaurants</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white hover:underline">Add Restaurant</a></li>
+                        <li><a href="#" class="hover:text-white hover:underline">Business App</a></li>
+                        <li><a href="#" class="hover:text-white hover:underline">Business Owner</a></li>
+                        <li><a href="#" class="hover:text-white hover:underline">Restaurant Widgets</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-10 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="order-2 md:order-1 mt-4 md:mt-0">© 2024 FoodExpress Technologies Ltd. All rights reserved.</p>
+                <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 order-1 md:order-2">
+                    <a href="#" class="hover:text-white hover:underline">Terms of Service</a>
+                    <a href="#" class="hover:text-white hover:underline">Privacy Policy</a>
+                    <a href="#" class="hover:text-white hover:underline">Cookie Policy</a>
+                    <a href="#" class="hover:text-white hover:underline">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button id="backToTop" class="fixed bottom-6 right-6 bg-red-500 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-red-600 transition-colors hidden">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Back to top button
+        const backToTopBtn = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.remove('hidden');
+            } else {
+                backToTopBtn.classList.add('hidden');
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Toggle restaurant favorites
+        const favButtons = document.querySelectorAll('.fa-heart');
+        favButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                this.classList.toggle('far');
+                this.classList.toggle('fas');
+                this.classList.toggle('text-red-500');
+            });
+        });
+
+        // Mobile menu toggle (placeholder functionality)
+        document.querySelector('.fa-bars').addEventListener('click', function() {
+            alert('Mobile menu would open here');
+        });
+    </script>
+</body>
+</html>
+

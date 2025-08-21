@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - FoodExpress</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+        
+        :root {
+            --primary: #e23744;
+            --primary-dark: #e8493e;
+        }
+        
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/60a749c4-529d-4bc3-90fb-91369f923afc.png') center/cover no-repeat fixed;
+        }
+        
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 360px; /* Smaller max-width */
+        }
+        
+        .btn-primary {
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(226, 55, 68, 0.3);
+        }
+        
+        .input-field:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(226, 55, 68, 0.2);
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #64748b;
+            margin: 1rem 0;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .divider:not(:empty)::before {
+            margin-right: 1em;
+        }
+        
+        .divider:not(:empty)::after {
+            margin-left: 1em;
+        }
+        
+        /* Compact form styles */
+        .compact-form {
+            padding: 1.5rem;
+        }
+        
+        .compact-form .input-field {
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .compact-form .btn-primary {
+            padding: 0.75rem;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <div class="login-container rounded-xl overflow-hidden border border-gray-100">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-red-500 to-red-400 py-4 px-6 text-center">
+            <a href="index.html" class="inline-block">
+                <div class="text-2xl font-bold text-white flex items-center justify-center">
+                    <i class="fas fa-utensils mr-2"></i>
+                    FoodExpress
+                </div>
+            </a>
+            <h1 class="text-lg font-bold text-white mt-2">Welcome Back</h1>
+        </div>
+        
+        <!-- Login Form -->
+        <div class="compact-form">
+            <form id="loginForm">
+                <div class="mb-4">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-envelope text-gray-400 text-sm"></i>
+                        </div>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email"
+                            class="input-field pl-10 w-full border border-gray-300 rounded-lg focus:outline-none"
+                            placeholder="Email address"
+                            required
+                        >
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-lock text-gray-400 text-sm"></i>
+                        </div>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password"
+                            class="input-field pl-10 w-full border border-gray-300 rounded-lg focus:outline-none"
+                            placeholder="Password"
+                            required
+                        >
+                        <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center" id="togglePassword">
+                            <i class="fas fa-eye text-gray-400 hover:text-gray-600 text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center">
+                        <input type="checkbox" id="remember" name="remember" class="h-4 w-4 text-red-500 focus:ring-red-500 border-gray-300 rounded">
+                        <label for="remember" class="ml-2 block text-xs text-gray-700">Remember me</label>
+                    </div>
+                    <a href="forgot-password.html" class="text-xs text-red-500 hover:text-red-600 hover:underline">Forgot password?</a>
+                </div>
+                
+                <button type="submit" class="btn-primary w-full text-white rounded-lg font-bold mb-3">
+                    Sign In
+                </button>
+                
+                <div class="divider text-xs">or</div>
+                
+                <div class="grid grid-cols-2 gap-2 mb-4">
+                    <button type="button" class="bg-white border border-gray-300 text-gray-700 py-2 rounded-lg font-medium hover:bg-gray-50 flex items-center justify-center text-xs">
+                        <i class="fab fa-google text-red-500 mr-1 text-sm"></i>
+                        Google
+                    </button>
+                    <button type="button" class="bg-white border border-gray-300 text-gray-700 py-2 rounded-lg font-medium hover:bg-gray-50 flex items-center justify-center text-xs">
+                        <i class="fab fa-facebook-f text-blue-600 mr-1 text-sm"></i>
+                        Facebook
+                    </button>
+                </div>
+                
+                <p class="text-center text-gray-600 text-xs">
+                    Don't have an account? 
+                    <a href="code(SIGN UP PAGE).html" class="text-red-500 font-medium hover:text-red-600 hover:underline">Sign up</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Toggle password visibility
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#password');
+        
+        togglePassword.addEventListener('click', function() {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            this.querySelector('i').classList.toggle('fa-eye-slash');
+        });
+
+        // Form submission
+        const loginForm = document.getElementById('loginForm');
+        
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const remember = document.getElementById('remember').checked;
+            
+            // Here you would normally send the data to your server
+            console.log('Login attempt:', { email, password, remember });
+            
+            // Simulate a successful login (remove this in production)
+            alert('Login successful! Redirecting...');
+            // window.location.href = 'dashboard.html'; // Redirect after login
+        });
+    </script>
+</body>
+</html>
